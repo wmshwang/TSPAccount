@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#0B0B0B</color>
+    <color name="colorPrimaryDark">#0B0B0B</color>
+    <color name="colorAccent">#0B0B0B</color>
+    <color name="text_White">#BEBEBE</color>
+    <color name="text_white_1">#F0F3F6</color>
+    <color name="text_Grey">#848484</color>
+    <color name="red">#f1203e</color>
+    <color name="blue_bg">#037BFF</color>
+    <color name="select_txt">#222222</color>
+    <color name="recharge_txt">#141921</color>
+    <color name="center_line">#343A49</color>
+    <color name="title_bar_txt">#CFCFCF</color>
+    <color name="bind_Left">#0D0F15</color>
+    <color name="bind_Left_1">#141821</color>
+    <color name="pop_bg">#283E58</color>
+    <color name="line_left">#313640</color>
+    <color name="txt_color">#e6be00</color>//toast_radius
+    <color name="txt_login">#666666</color>
+    <color name="news_color">#DDE0E2</color>
+    <color name="new_list_bg">#06070A</color>
+    <color name="news_line_color">#232323</color>
+    <color name="title_bar_line">#282828</color>
+    <color name="account_center_line">#3d3820</color>
+    <color name="account_info">#898e92</color>
+    <color name="edit_bg">#464646</color>
+    <color name="password_text">#646464</color>
+    <color name="toast_bg">#090909</color>
+</resources>

@@ -1,0 +1,76 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@mipmap/account_background</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.InputMethod</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorAccent">@color/colorAccent</item>-->
+    </style>
+
+    <style name="textStyleWhite">
+        <item name="android:textSize">@dimen/x48</item>
+        <item name="android:textColor">@color/text_White</item>
+    </style>
+
+    <style name="textStyleGrey">
+        <item name="android:textSize">@dimen/x50</item>
+        <item name="android:textColor">@color/text_Grey</item>
+    </style>
+
+    <style name="CustomDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--Dialog的windowFrame框为无-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowNoTitle">true</item><!--是否有标题栏-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--设置Dialog的背景-->
+        <item name="android:backgroundDimEnabled">true</item><!--背景是否模糊显示-->
+    </style>
+
+    <style name="TransparentDialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item><!--Dialog的windowFrame框为无-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowNoTitle">true</item><!--是否有标题栏-->
+        <item name="android:windowBackground">@android:color/transparent</item><!--设置Dialog的背景-->
+        <item name="android:backgroundDimEnabled">true</item><!--背景是否模糊显示-->
+        <item name="android:backgroundDimAmount">0.25</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="MyDialogStyle">
+        <item name="android:windowBackground">@android:color/transparent</item><!--设置Dialog的背景-->
+        <item name="android:windowFrame">@null</item><!--Dialog的windowFrame框为无-->
+        <item name="android:windowNoTitle">true</item><!--是否有标题栏-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item><!--背景是否模糊显示-->
+        <item name="android:backgroundDimAmount">0.25</item>
+    </style>
+
+    <!-- popup window 显示消失动画-->
+    <style name="PopWindowAnimStyle">
+        <item name="android:windowShowAnimation">@anim/dialog_enter</item>
+        <!-- 指定显示的动画xml  -->
+        <item name="android:windowHideAnimation">@anim/dialog_exit</item>
+        <!-- 指定消失的动画xml  -->
+    </style>
+
+    <style name="Anim_fade" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@mipmap/account_background</item>
+        <item name="android:windowAnimationStyle">@style/fade</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    </style>
+    <style name="fade" parent="@android:style/Animation.Activity">
+        <!--<item name="android:activityOpenEnterAnimation">@anim/activity_open</item>-->
+        <!--<item name="android:activityOpenExitAnimation">@anim/activity_close</item>-->
+        <item name="android:activityCloseEnterAnimation">@anim/activity_open</item>
+        <item name="android:activityCloseExitAnimation">@anim/activity_close</item>
+    </style>
+
+</resources>

@@ -1,0 +1,158 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
+    defaultConfig {
+        applicationId "com.desay_svautomotive.tspaccount"
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 1
+        versionName getCurVersionName()
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+            manifestPlaceholders = [
+                    XG_ACCESS_ID:"2100293213",
+                    XG_ACCESS_KEY:"AU928DB44TZJ",
+//                    XG_ACCESS_ID:"2100283624",
+//                    XG_ACCESS_KEY:"A5LAA8973TGE",
+            ]
+        }
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("AppSignedKey/AppSigned_Include_Platform.jks")
+            storePassword 'SVRN2RDSW2'
+            keyAlias 'desaysv'
+            keyPassword 'SVRN2RDSW2'
+        }
+
+        debug {
+            storeFile file("AppSignedKey/AppSigned_Include_Platform.jks")
+            storePassword 'SVRN2RDSW2'
+            keyAlias 'desaysv'
+            keyPassword 'SVRN2RDSW2'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            //前一部分代表系统默认的android程序的混淆文件，该文件已经包含了基本的混淆声明，后一个文件是自己的定义混淆文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    //自定义apk名称
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            if ("release" == variant.buildType.name) {
+                def string = "TSPAccount" + ".apk";
+                output.outputFile = new File(output.outputFile.parent, string)
+            } else if ("debug" == variant.buildType.name) {
+                def string = "TSPAccount" + ".apk";
+                output.outputFile = new File(output.outputFile.parent, string)
+            }
+        }
+    }
+}
+
+def getCurVersionName() {
+    def versionName
+    def name_ = 'NV5087_Account_02_11.'
+    def versionNum
+    def today
+    def type
+    //如果version.properties文件可读则执行操作
+    def versionPropsFile = file('version.properties')
+    if (versionPropsFile.canRead()) {
+        //载入version.properties
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        //从version.properties根据关键字"VERSION_CODE"取Integer
+        def verCode = versionProps['VERSION_CODE'].toInteger()
+        //判断build模式，如果是发布模式（':app:assembleRelease'）则自增版本号，并且写回version.properties文件中
+        def runTasks = gradle.getStartParameter().getTaskNames()
+        if (':TSPAccount:assembleRelease' in runTasks || 'assembleRelease' in runTasks) {
+            versionProps['VERSION_CODE'] = (++verCode).toString()
+            versionProps.store(versionPropsFile.newWriter(), null)
+            type = '_R'
+        } else if (':TSPAccount:assembleDebug' in runTasks || 'assembleDebug' in runTasks) {
+            type = '_T'
+        }
+        if (verCode < 10) {
+            versionNum = "0" + verCode
+        } else {
+            versionNum = verCode
+        }
+        String time = new Date().format("yyMMdd")
+        today = time;
+        versionName = name_ + versionNum + "_" + today + type
+        //使用自增后的版本号为为生成的APK命名
+//        android.applicationVariants.all { variant ->
+//            if (variant.buildType.name == 'release') {
+//                variant.outputs.each { output ->
+//                    def oldFile = output.outputFile
+//                    def releaseApkName
+//                    releaseApkName = versionName + '.APK'
+//                    output.outputFile = new File(oldFile.parent, releaseApkName)
+//                }
+//            }
+//        }
+        return versionName
+    } else {
+        throw new GradleException("Could not read version.properties!")
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        maven { url 'https://www.jitpack.io'}
+        mavenCentral()
+    }
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs.add('-Xbootclasspath/p:framework_intermediate/framework.jar')
+    }
+}
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile 'com.android.support:support-v4:26.0.0-alpha1'
+    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.lzy.net:okgo:3.0.4'
+    compile 'com.tencent.xinge:xinge:3.1.2-beta'
+    compile 'com.tencent.wup:wup:1.0.0.E-alpha'
+    compile 'com.tencent.mid:mid:3.9.0-alpha'
+    compile files('libs/TheftService.jar')
+    compile files('libs/LibTspBigDataPoint-1.0.jar')
+    compile files('libs/zxing-core-3.2.1.jar')
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    provided files('framework_intermediate/framework.jar')
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+}
